@@ -4,9 +4,19 @@
   <title>ROCK, PAPER, SCISSORS!</title>
 </head>
 <body>
+	<p>Open the console, and let's play!</p>
   <script>
- 	// Your JavaScript goes here!
-    
+	function computerPlay() { // Randomize the Computer's selection
+		let randomChoice = Math.floor(Math.random() * Math.floor(3));
+
+		if (randomChoice == 0){
+			return "Rock";
+		} else if (randomChoice == 1) {
+			return "Paper";
+		} 
+
+		return "Scissors";
+	}    
   </script>
 </body>
 </html>
