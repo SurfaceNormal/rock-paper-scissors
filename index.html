@@ -5,7 +5,10 @@
   <title>ROCK, PAPER, SCISSORS!</title>
 </head>
 <body>
-  <div id='container'>
+  <div id='display'>
+  	<p>Let's play rock, paper, scissors! Best of five!</p>
+  </div>	
+  <div id='buttons'>
     <button id='rock'>Rock</button>
 	<button id='paper'>Paper</button>
 	<button id='scissors'>Scissors</button>
@@ -35,23 +38,28 @@
 	}*/
 
 	function playRound(playerSelection, computerSelection) { 
+		const display = document.querySelector('#display');
+
+		const winner = document.createElement('p');
+
+		winner.classList.toggle('winner');
+
 		if (playerSelection == computerSelection) {
-			console.log("You tie! (" + playerSelection + ")");
-		} 
-		else if (playerSelection == 'rock' && computerSelection == 'scissors') {
-			console.log("You win! Rock beats scissors!");
+			winner.textContent = "You tie! (" + playerSelection + ")";
+		} else if (playerSelection == 'rock' && computerSelection == 'scissors') {
+			winner.textContent = "You win! Rock beats scissors!";
 		} else if (playerSelection == 'paper' && computerSelection == 'rock') {
-			console.log("You win! Paper beats rock!");
+			winner.textContent = "You win! Paper beats rock!";
 		} else if (playerSelection == 'scissors' && computerSelection == 'paper') {
-			console.log("You win! Scissors beats paper!");
-		} 
-		else if (computerSelection == 'rock' && playerSelection == 'scissors') {
-			console.log("You lose! Rock beats scissors!");
+			winner.textContent = "You win! Scissors beats paper!";
+		} else if (computerSelection == 'rock' && playerSelection == 'scissors') {
+			winner.textContent = "You lose! Rock beats scissors!";
 		} else if (computerSelection == 'paper' && playerSelection == 'rock') {
-			console.log("You lose! Paper beats rock!");
+			winner.textContent = "You lose! Paper beats rock!";
 		} else {
-		console.log("You lose! Scissors beats paper!");
+			winner.textContent = "You lose! Scissors beats paper!";
 		}
+		display.appendChild(winner);
 	}
 
 	/*function game() {
