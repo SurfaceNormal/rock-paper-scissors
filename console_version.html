@@ -5,12 +5,7 @@
   <title>ROCK, PAPER, SCISSORS!</title>
 </head>
 <body>
-  <div id='container'>
-    <button id='rock'>Rock</button>
-	<button id='paper'>Paper</button>
-	<button id='scissors'>Scissors</button>
-  </div>
-
+	<p>Open the console (CTRL+SHIFT+I), and let's play! Type "game()" to start!</p>
   <script>
 	function computerPlay() { // Randomize the Computer's selection
 		let randomChoice = Math.floor(Math.random() * Math.floor(3));
@@ -24,7 +19,7 @@
 		return "scissors";
 	}    
 
-	/*function playerChoice() { 
+	function playerChoice() { // Prompt user until expected inputs entered
 		let selection;
 
 		do {
@@ -32,29 +27,38 @@
 		} while (selection != 'rock' && selection != 'paper' && selection != 'scissors');
 
 		return selection;
-	}*/
-
-	function playRound(playerSelection, computerSelection) { 
-		if (playerSelection == computerSelection) {
-			console.log("You tie! (" + playerSelection + ")");
-		} 
-		else if (playerSelection == 'rock' && computerSelection == 'scissors') {
-			console.log("You win! Rock beats scissors!");
-		} else if (playerSelection == 'paper' && computerSelection == 'rock') {
-			console.log("You win! Paper beats rock!");
-		} else if (playerSelection == 'scissors' && computerSelection == 'paper') {
-			console.log("You win! Scissors beats paper!");
-		} 
-		else if (computerSelection == 'rock' && playerSelection == 'scissors') {
-			console.log("You lose! Rock beats scissors!");
-		} else if (computerSelection == 'paper' && playerSelection == 'rock') {
-			console.log("You lose! Paper beats rock!");
-		} else {
-		console.log("You lose! Scissors beats paper!");
-		}
 	}
 
-	/*function game() {
+	function playRound(playerSelection, computerSelection) { 
+		// Return 0 if game tied
+		if (playerSelection == computerSelection) {
+			console.log("You tie! (" + playerSelection + ")");
+			return 0;
+		} 
+		// Return 1 for player wins
+		else if (playerSelection == 'rock' && computerSelection == 'scissors') {
+			console.log("You win! Rock beats scissors!");
+			return 1;
+		} else if (playerSelection == 'paper' && computerSelection == 'rock') {
+			console.log("You win! Paper beats rock!");
+			return 1;
+		} else if (playerSelection == 'scissors' && computerSelection == 'paper') {
+			console.log("You win! Scissors beats paper!");
+			return 1;
+		} 
+		// Return -1 for CPU wins
+		else if (computerSelection == 'rock' && playerSelection == 'scissors') {
+			console.log("You lose! Rock beats scissors!");
+			return -1;
+		} else if (computerSelection == 'paper' && playerSelection == 'rock') {
+			console.log("You lose! Paper beats rock!");
+			return -1;
+		}	
+		console.log("You lose! Scissors beats paper!");
+		return -1;
+	}
+
+	function game() {
 		let playerScore = 0;
   		let computerScore = 0;
   		let ties = 0;
@@ -81,21 +85,7 @@
 		} else {
 			console.log("YOU'RE THE VICTOR!");
 		}
-	}*/
-
-	// buttons is a node list. It looks and acts much like an array.
-	const buttons = document.querySelectorAll('button');
-
-	// we use the .forEach method to iterate through each button
-	buttons.forEach((button) => {
-
-    	// and for each one we add a 'click' listener
-    	button.addEventListener('click', (e) => {
-    		playRound(button.id, computerPlay());
-    	});
-	});
-
-
+	}
   </script>
 </body>
 </html>
