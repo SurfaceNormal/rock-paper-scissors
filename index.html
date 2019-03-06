@@ -27,16 +27,6 @@
 		return "scissors";
 	}    
 
-	/*function playerChoice() { 
-		let selection;
-
-		do {
-			selection = prompt("What's your pick? Rock? Paper? Or scissors?").toLowerCase()
-		} while (selection != 'rock' && selection != 'paper' && selection != 'scissors');
-
-		return selection;
-	}*/
-
 	function playRound(playerSelection, computerSelection) { 
 		const display = document.querySelector('#display');
 
@@ -46,52 +36,62 @@
 
 		if (playerSelection == computerSelection) {
 			winner.textContent = "You tie! (" + playerSelection + ")";
+			ties++;
 		} else if (playerSelection == 'rock' && computerSelection == 'scissors') {
 			winner.textContent = "You win! Rock beats scissors!";
+			playerScore++;
 		} else if (playerSelection == 'paper' && computerSelection == 'rock') {
 			winner.textContent = "You win! Paper beats rock!";
+			playerScore++;
 		} else if (playerSelection == 'scissors' && computerSelection == 'paper') {
 			winner.textContent = "You win! Scissors beats paper!";
+			playerScore++;
 		} else if (computerSelection == 'rock' && playerSelection == 'scissors') {
 			winner.textContent = "You lose! Rock beats scissors!";
+			computerScore++;
 		} else if (computerSelection == 'paper' && playerSelection == 'rock') {
 			winner.textContent = "You lose! Paper beats rock!";
+			computerScore++;
 		} else {
 			winner.textContent = "You lose! Scissors beats paper!";
+			computerScore++;
 		}
+
+		roundNumber++;
 		display.appendChild(winner);
 	}
 
-	/*function game() {
-		let playerScore = 0;
-  		let computerScore = 0;
-  		let ties = 0;
-		let point = 0;
+	function scoreBoard() {
+		// DOM to append score to page after each round
+		const display = document.querySelector('#display');
 
-		console.log("Let's go! A best of five!");
+		const score = document.createElement('p');
+		score.classList.toggle('score');
+		
+		score.textContent = "Round " + roundNumber + ", Player: " + playerScore + ", Computer: " + computerScore + ", Ties: " + ties;
+		display.appendChild(score);
 
-		for (i=0; i < 5; i++) {
-			point = playRound(playerChoice(), computerPlay());
-			if (point == 0) {
-				ties++;
-			} else if (point < 0) {
-				computerScore++;
+		// Determine victor after 5 rounds
+		if (roundNumber % 5 == 0) {
+			const victory = document.createElement('p');
+			victory.classList.toggle('victory');
+
+			if (playerScore == computerScore) {
+				victory.textContent = "IT'S A DRAW!";
+			} else if (playerScore < computerScore) {
+				victory.textContent = "CPU VICTORY!";
 			} else {
-				playerScore++;
+				victory.textContent = "YOU'RE THE VICTOR!";
 			}
-			console.log("Round " + (i+1) + ", Player: " + playerScore + ", Computer: " + computerScore + ", Ties: " + ties);
+			display.appendChild(victory);
 		}
+	}
 
-		if (playerScore == computerScore) {
-			console.log("IT'S A DRAW!");
-		} else if (playerScore < computerScore) {
-			console.log("CPU VICTORY!");
-		} else {
-			console.log("YOU'RE THE VICTOR!");
-		}
-	}*/
-
-	// buttons is a node list. It looks and acts much like an array.
+	let playerScore = 0;
+  	let computerScore = 0;
+  	let ties = 0;
+	let roundNumber = 1;
+	// buttons is a node list. It looks and acts much like an array. 
 	const buttons = document.querySelectorAll('button');
 
 	// we use the .forEach method to iterate through each button
@@ -100,10 +100,9 @@
     	// and for each one we add a 'click' listener
     	button.addEventListener('click', (e) => {
     		playRound(button.id, computerPlay());
+    		scoreBoard();
     	});
 	});
-
-
   </script>
 </body>
 </html>
